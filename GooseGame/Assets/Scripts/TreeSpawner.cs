@@ -1,83 +1,83 @@
-using System.Collections;
 using UnityEngine;
+using System.Collections;
 
 public class TreeSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject[] prefabs;
-    [SerializeField] private float scrollDuration = 2f;
-    [SerializeField] private float delayBetweenScrolls = 1f;
-    [SerializeField] private float noSpawnZoneLeft = 200f;
-    [SerializeField] private float noSpawnZoneRight = 400f;
+    [SerializeField] private float speed = 5f;
+    [SerializeField] private int maxPrefabsToInstantiate = 5;
+    [SerializeField] private float spawnDelay = 2f;
+    [SerializeField] private float leftBoundary = -1f;
+    [SerializeField] private float rightBoundary = 1f;
 
-    void Start()
+    private void Start()
     {
-        StartCoroutine(ScrollAndInstantiate());
+        StartCoroutine(SpawnRoutine());
     }
 
-    IEnumerator ScrollAndInstantiate()
+    private IEnumerator SpawnRoutine()
     {
         while (true)
         {
-            // Instantiate prefabs at random on-screen positions
-            foreach (GameObject prefab in prefabs)
-            {
-                Vector3 randomOnScreenPosition = GetRandomOnScreenPosition();
-                Instantiate(prefab, randomOnScreenPosition, Quaternion.identity);
-            }
-
-            // Scroll prefabs from on-screen to off-screen
-            foreach (GameObject prefab in prefabs)
-            {
-                yield return StartCoroutine(ScrollPrefab(prefab));
-            }
-
-            // Delay between scrolls
-            yield return new WaitForSeconds(delayBetweenScrolls);
+            SpawnPrefabs();
+            yield return new WaitForSeconds(spawnDelay);
         }
     }
 
-    IEnumerator ScrollPrefab(GameObject obj)
+    private void SpawnPrefabs()
     {
-        float elapsedTime = 0f;
+        int numPrefabsToInstantiate = Random.Range(1, maxPrefabsToInstantiate + 1);
 
-        while (elapsedTime < scrollDuration)
+        GameObject[] instantiatedPrefabs = new GameObject[numPrefabsToInstantiate];
+
+        float screenWidth = Screen.width;
+        float screenToWorldWidth = Camera.main.ScreenToWorldPoint(new Vector3(screenWidth, 0, 0)).x;
+
+        for (int i = 0; i < numPrefabsToInstantiate; i++)
         {
-            // Calculate the interpolation factor
-            float t = elapsedTime / scrollDuration;
+            GameObject randomPrefab = prefabs[Random.Range(0, prefabs.Length)];
 
-            // Lerp between on-screen and off-screen positions
-            obj.transform.position = Vector3.Lerp(GetRandomOnScreenPosition(), GetRandomOffScreenPosition(), t);
+            float randomX;
+
+            // Randomly choose whether to spawn on the left or right side
+            if (Random.Range(0f, 1f) < 0.5f)
+            {
+                randomX = Random.Range(-screenToWorldWidth, leftBoundary); // Adjust this range based on your scene
+            }
+            else
+            {
+                randomX = Random.Range(rightBoundary, screenToWorldWidth); // Adjust this range based on your scene
+            }
+
+            float randomY = Random.Range(5f, 10f); // Adjust this range based on your scene
+
+            instantiatedPrefabs[i] = Instantiate(randomPrefab, new Vector3(randomX, randomY, 0f), Quaternion.identity);
+        }
+
+        StartCoroutine(MovePrefabs(instantiatedPrefabs));
+    }
+
+
+
+    private IEnumerator MovePrefabs(GameObject[] prefabsToMove)
+    {
+        while (true)
+        {
+            for (int i = 0; i < prefabsToMove.Length; i++)
+            {
+                if (prefabsToMove[i] != null)
+                {
+                    prefabsToMove[i].transform.Translate(Vector3.down * speed * Time.deltaTime);
+
+                    // Destroy prefabs when they leave the screen
+                    if (prefabsToMove[i].transform.position.y < -10f)
+                    {
+                        Destroy(prefabsToMove[i]);
+                    }
+                }
+            }
 
             yield return null;
-            elapsedTime += Time.deltaTime;
         }
-    }
-
-    Vector3 GetRandomOnScreenPosition()
-    {
-        float x;
-        float y;
-
-        do
-        {
-            x = Random.Range(0f, Screen.width);
-            y = Random.Range(0f, Screen.height);
-        } while (IsWithinNoSpawnZone(x));
-
-        return Camera.main.ScreenToWorldPoint(new Vector3(x, y, 10f));
-    }
-
-    Vector3 GetRandomOffScreenPosition()
-    {
-        float x = Random.Range(0f, Screen.width);
-        float y = Random.Range(Screen.height, Screen.height + 5f); // Adjust the range based on how far off-screen you want them to spawn
-        return Camera.main.ScreenToWorldPoint(new Vector3(x, y, 10f));
-    }
-
-    bool IsWithinNoSpawnZone(float xScreenPosition)
-    {
-        float xWorldPosition = Camera.main.ScreenToWorldPoint(new Vector3(xScreenPosition, 0f, 10f)).x;
-
-        return xWorldPosition > noSpawnZoneLeft && xWorldPosition < noSpawnZoneRight;
     }
 }
