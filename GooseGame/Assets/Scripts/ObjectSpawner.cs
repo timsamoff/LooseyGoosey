@@ -1,3 +1,4 @@
+// ObjectSpawner.cs
 using UnityEngine;
 using System.Collections;
 
@@ -9,7 +10,6 @@ public class ObjectSpawner : MonoBehaviour
     [SerializeField] private float spawnDelay = 2f;
     [SerializeField] private float leftBoundary = -1f;
     [SerializeField] private float rightBoundary = 1f;
-    [SerializeField] private int maxHitsBeforeGameOver = 3;
     [SerializeField] private int maxMissesBeforeGameOver = 3;
 
     private int missesCount = 0; // Counter for misses
@@ -43,12 +43,12 @@ public class ObjectSpawner : MonoBehaviour
             instantiatedPrefabs[i] = Instantiate(randomPrefab, new Vector3(randomX, randomY, 0f), Quaternion.identity);
             instantiatedPrefabs[i].name = "Object";
 
-            // Attach the HitTracker script if not already attached
-            HitTracker hitTracker = instantiatedPrefabs[i].GetComponent<HitTracker>();
-            if (hitTracker == null)
+            // Attach the MissTracker script if not already attached
+            MissTracker missTracker = instantiatedPrefabs[i].GetComponent<MissTracker>();
+            if (missTracker == null)
             {
-                hitTracker = instantiatedPrefabs[i].AddComponent<HitTracker>();
-                hitTracker.maxHits = maxHitsBeforeGameOver;
+                missTracker = instantiatedPrefabs[i].AddComponent<MissTracker>();
+                missTracker.objectSpawner = this;
             }
         }
 
@@ -65,19 +65,16 @@ public class ObjectSpawner : MonoBehaviour
                 {
                     prefabsToMove[i].transform.Translate(Vector3.down * speed * Time.deltaTime);
 
-                    // Destroy prefabs when they leave the screen
+                    // Check if the prefab leaves the screen
                     if (prefabsToMove[i].transform.position.y < -10f)
                     {
-                        // Check if the prefab is not hit by "poop" before incrementing misses
-                        if (!prefabsToMove[i].GetComponent<HitTracker>().IsHit())
+                        // Increment misses only if the prefab is not tagged as "poop"
+                        if (!prefabsToMove[i].CompareTag("poop"))
                         {
-                            // Increase the misses count and display it in the console
-                            missesCount++;
-                            Debug.Log("Misses: " + missesCount);
-
-                            CheckGameOver();
+                            IncrementMisses();
                         }
 
+                        // Destroy the prefab
                         Destroy(prefabsToMove[i]);
                     }
                 }
@@ -87,12 +84,22 @@ public class ObjectSpawner : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        CheckGameOver();
+    }
+
     private void CheckGameOver()
     {
         if (missesCount >= maxMissesBeforeGameOver)
         {
-            // Game Over
             Debug.Log("Game Over");
         }
+    }
+
+    public void IncrementMisses()
+    {
+        missesCount++;
+        Debug.Log("Misses: " + missesCount);
     }
 }
