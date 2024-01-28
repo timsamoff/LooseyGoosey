@@ -3,7 +3,10 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - poop
+  - object
+  - goose
   layers:
   - Default
   - TransparentFX
@@ -13,8 +16,8 @@ TagManager:
   - UI
   - Goose
   - Boundary
-  - 
-  - 
+  - Object
+  - Poopy
   - 
   - 
   - 
@@ -40,6 +43,12 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Object
+    uniqueID: 4895373
+    locked: 0
+  - name: Poop
+    uniqueID: 836780365
     locked: 0
   - name: Goose
     uniqueID: 3105285599
