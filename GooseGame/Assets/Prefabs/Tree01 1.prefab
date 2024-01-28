@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1270948456990246308}
   - component: {fileID: 4183810973918081787}
   m_Layer: 0
-  m_Name: Tree01
+  m_Name: Tree01 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -72,10 +72,10 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1256662089
-  m_SortingLayer: 2
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.13725491, g: 0.30980393, b: 0.11372549, a: 1}
+  m_Color: {r: 0.22951226, g: 0.4245283, b: 0.20291916, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -156,10 +156,10 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1256662089
-  m_SortingLayer: 2
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.13725491, g: 0.30980393, b: 0.11372549, a: 1}
+  m_Color: {r: 0.22951226, g: 0.4245283, b: 0.20291916, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
