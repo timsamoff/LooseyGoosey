@@ -44,8 +44,17 @@ TagManager:
   - name: Goose
     uniqueID: 3105285599
     locked: 0
-  - name: Trees
+  - name: RockDark
+    uniqueID: 4237514059
+    locked: 0
+  - name: RockLight
+    uniqueID: 2416150443
+    locked: 0
+  - name: TreesDark
     uniqueID: 3038305207
+    locked: 0
+  - name: TreesLight
+    uniqueID: 3890177655
     locked: 0
   - name: Road
     uniqueID: 2943679283

@@ -352,7 +352,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1189681697
-  m_SortingLayer: 2
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -424,7 +424,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1189681697
-  m_SortingLayer: 2
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -540,7 +540,7 @@ GameObject:
   - component: {fileID: 1737264502}
   - component: {fileID: 1737264503}
   m_Layer: 0
-  m_Name: Trees
+  m_Name: Environment
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -600,7 +600,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1256662089
-  m_SortingLayer: 1
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -634,11 +634,21 @@ MonoBehaviour:
   - {fileID: 3315382526212809460, guid: cf1b9558cfd0871489e1b7195ba6916a, type: 3}
   - {fileID: 3315382526212809460, guid: f9bcf6cd64997d44d8030f9a9d70a1a2, type: 3}
   - {fileID: 3315382526212809460, guid: f1a221723c1654a45b297c79d8c2520d, type: 3}
+  - {fileID: 6846757058867088158, guid: 7be57fdd80ccf424097bf120a331d460, type: 3}
+  - {fileID: 6846757058867088158, guid: 7cbc6cefc72b9dc4a9ff15cb8fc83100, type: 3}
+  - {fileID: 6846757058867088158, guid: 84408e8053c3ce04cb32dce487881853, type: 3}
+  - {fileID: 6846757058867088158, guid: 8e6c0bcead8ba9f489d2cfd921c37d38, type: 3}
+  - {fileID: 6846757058867088158, guid: 4c9bfd605af89f94f9cc353d250ccf2d, type: 3}
+  - {fileID: 6846757058867088158, guid: 1d163d1dd6becd044b0993bf9fb89049, type: 3}
+  - {fileID: 6846757058867088158, guid: 15bd7c55a585cb046ad42d7a8291d723, type: 3}
+  - {fileID: 6846757058867088158, guid: 92daeb2868cd0cd4cb0be8858f443b39, type: 3}
   speed: 5
-  maxPrefabsToInstantiate: 5
+  maxPrefabsToInstantiate: 7
   spawnDelay: 2
   leftBoundary: -2.5
   rightBoundary: 2.5
+  minScalePercentage: 90
+  maxScalePercentage: 110
 --- !u!1 &1834286543
 GameObject:
   m_ObjectHideFlags: 0
@@ -756,7 +766,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1189681697
-  m_SortingLayer: 2
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

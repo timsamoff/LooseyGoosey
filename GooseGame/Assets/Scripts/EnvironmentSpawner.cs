@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class TreeSpawner : MonoBehaviour
+public class EnvironmentSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject[] prefabs;
     [SerializeField] private float speed = 5f;
@@ -9,6 +9,9 @@ public class TreeSpawner : MonoBehaviour
     [SerializeField] private float spawnDelay = 2f;
     [SerializeField] private float leftBoundary = -1f;
     [SerializeField] private float rightBoundary = 1f;
+
+    [SerializeField] private float minScalePercentage = 90f;
+    [SerializeField] private float maxScalePercentage = 110f;
 
     private void Start()
     {
@@ -51,13 +54,19 @@ public class TreeSpawner : MonoBehaviour
 
             float randomY = Random.Range(5f, 10f); // Adjust this range based on your scene
 
+            float randomScaleFactor = Random.Range(minScalePercentage / 100f, maxScalePercentage / 100f); // Adjust this range for scaling
+
+            Vector3 randomScale = randomPrefab.transform.localScale * randomScaleFactor;
+
+            float randomZRotation = Random.Range(0f, 360f); // Random Z rotation
+
             instantiatedPrefabs[i] = Instantiate(randomPrefab, new Vector3(randomX, randomY, 0f), Quaternion.identity);
+            instantiatedPrefabs[i].transform.localScale = randomScale;
+            instantiatedPrefabs[i].transform.localRotation = Quaternion.Euler(0f, 0f, randomZRotation);
         }
 
         StartCoroutine(MovePrefabs(instantiatedPrefabs));
     }
-
-
 
     private IEnumerator MovePrefabs(GameObject[] prefabsToMove)
     {
@@ -67,7 +76,7 @@ public class TreeSpawner : MonoBehaviour
             {
                 if (prefabsToMove[i] != null)
                 {
-                    prefabsToMove[i].transform.Translate(Vector3.down * speed * Time.deltaTime);
+                    prefabsToMove[i].transform.Translate(Vector3.down * speed * Time.deltaTime, Space.World);
 
                     // Destroy prefabs when they leave the screen
                     if (prefabsToMove[i].transform.position.y < -10f)
