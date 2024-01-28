@@ -403,14 +403,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabs:
-  - {fileID: 465582122637287046, guid: a729d0222577dce4da303ce5cf620433, type: 3}
+  - {fileID: 1537538871177905182, guid: d08040efecacd7545bee66cbdef6cde6, type: 3}
+  - {fileID: 3754826545715845159, guid: c41c238536aa0e243b66e52bf2fce7fb, type: 3}
+  - {fileID: 3174573746688898780, guid: a872f9b4597eed34bbb9605f39a2518e, type: 3}
+  - {fileID: 2796484658525962299, guid: 1baf4de917c3711408546abd7412f767, type: 3}
+  - {fileID: 9088457681852972834, guid: 40c1fd3f6b529f64f97239c3488470ae, type: 3}
+  - {fileID: 7020926093260426505, guid: db897a6dd228b7c48a6a8562f1e404e1, type: 3}
+  - {fileID: 8738509271483263830, guid: 3242587845455074a95e287efe737c14, type: 3}
+  - {fileID: 6057574625008925595, guid: 744ec248e95fdb448982b3a01f955678, type: 3}
+  - {fileID: 7533442912439136173, guid: 6b361581f86413048807f414be5fe6aa, type: 3}
   speed: 5
   maxPrefabsToInstantiate: 1
-  spawnDelay: 2
+  initialSpawnDelay: 2
   leftBoundary: -2
   rightBoundary: 2
-  maxHitsBeforeGameOver: 3
   maxMissesBeforeGameOver: 3
+  decreaseRate: 0.25
+  decreaseInterval: 15
+  healthImages:
+  - {fileID: 58382519}
+  - {fileID: 513875845}
+  - {fileID: 296427364}
 --- !u!212 &359974187
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1316,6 +1329,14 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 9e769dc81c74b3240a3e95f50590598b, type: 3}
   - {fileID: 8300000, guid: ef944c2971c13054b97821b4964fc9b3, type: 3}
   - {fileID: 8300000, guid: 5c3f994b2166dc4478e898704098ef8d, type: 3}
+  - {fileID: 8300000, guid: 0cc591976574ead4d9ff95625f7d45b1, type: 3}
+  - {fileID: 8300000, guid: 6cc0b86d150be13448d29838b8c474e3, type: 3}
+  - {fileID: 8300000, guid: 3606cc63fb6541d4ea2797915d118275, type: 3}
+  - {fileID: 8300000, guid: afee90e95a334f04ba6335593fad8f04, type: 3}
+  - {fileID: 8300000, guid: 677d68557e6c11b4e964ed85affe4983, type: 3}
+  - {fileID: 8300000, guid: d3ebd2d27e3968e45ab4643ed5ad3d98, type: 3}
+  - {fileID: 8300000, guid: 9e769dc81c74b3240a3e95f50590598b, type: 3}
+  - {fileID: 8300000, guid: afee90e95a334f04ba6335593fad8f04, type: 3}
 --- !u!82 &1470907824
 AudioSource:
   m_ObjectHideFlags: 0

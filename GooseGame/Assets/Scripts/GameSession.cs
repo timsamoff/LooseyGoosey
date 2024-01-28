@@ -7,7 +7,7 @@ public class GameSession : MonoBehaviour
 {
     void Start()
     {
-        Time.timeScale = 0;
+        // Time.timeScale = 0;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
     }
@@ -23,7 +23,7 @@ public class GameSession : MonoBehaviour
 
     public void RestartGame()
     {
-        Time.timeScale = 0;
+        // Time.timeScale = 0;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 

@@ -1,22 +1,32 @@
-// ObjectSpawner.cs
 using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class ObjectSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject[] prefabs;
     [SerializeField] private float speed = 5f;
     [SerializeField] private int maxPrefabsToInstantiate = 5;
-    [SerializeField] private float spawnDelay = 2f;
+    [SerializeField] private float initialSpawnDelay = 2f;
     [SerializeField] private float leftBoundary = -1f;
     [SerializeField] private float rightBoundary = 1f;
     [SerializeField] private int maxMissesBeforeGameOver = 3;
+    [SerializeField] private float decreaseRate = 0.1f;
+    [SerializeField] private float decreaseInterval = 15f;
+    [SerializeField] private Image[] healthImages;
 
     private int missesCount = 0; // Counter for misses
+    private float currentSpawnDelay;
+    private int currentHealth;
 
     private void Start()
     {
+        currentSpawnDelay = initialSpawnDelay;
+        currentHealth = healthImages.Length;
         StartCoroutine(SpawnRoutine());
+        StartCoroutine(DecreaseSpawnDelay());
+        UpdateHealthUI();
     }
 
     private IEnumerator SpawnRoutine()
@@ -24,8 +34,24 @@ public class ObjectSpawner : MonoBehaviour
         while (true)
         {
             SpawnPrefabs();
-            yield return new WaitForSeconds(spawnDelay);
+            yield return new WaitForSeconds(currentSpawnDelay);
         }
+    }
+
+    private IEnumerator DecreaseSpawnDelay()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(decreaseInterval);
+            DecreaseDelay();
+        }
+    }
+
+    private void DecreaseDelay()
+    {
+        currentSpawnDelay -= decreaseRate;
+        currentSpawnDelay = Mathf.Max(currentSpawnDelay, 0.1f); // Ensure it doesn't go below 0.1
+        Debug.Log("Spawn delay decreased to: " + currentSpawnDelay);
     }
 
     private void SpawnPrefabs()
@@ -68,8 +94,9 @@ public class ObjectSpawner : MonoBehaviour
                     // Check if the prefab leaves the screen
                     if (prefabsToMove[i].transform.position.y < -10f)
                     {
-                        // Increment misses only if the prefab is not tagged as "poop"
-                        if (!prefabsToMove[i].CompareTag("poop"))
+                        // Check if the prefab was hit by a "poop" object
+                        MissTracker missTracker = prefabsToMove[i].GetComponent<MissTracker>();
+                        if (missTracker == null || !missTracker.isHit)
                         {
                             IncrementMisses();
                         }
@@ -94,6 +121,11 @@ public class ObjectSpawner : MonoBehaviour
         if (missesCount >= maxMissesBeforeGameOver)
         {
             Debug.Log("Game Over");
+
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+
+            SceneManager.LoadScene(2);
         }
     }
 
@@ -101,5 +133,22 @@ public class ObjectSpawner : MonoBehaviour
     {
         missesCount++;
         Debug.Log("Misses: " + missesCount);
+        UpdateHealthUI();
+    }
+
+    private void UpdateHealthUI()
+    {
+        // Update the UI images based on the remaining health
+        for (int i = 0; i < healthImages.Length; i++)
+        {
+            bool shouldBeVisible = i < currentHealth - missesCount;
+            healthImages[i].enabled = shouldBeVisible;
+
+            // If the image should not be visible, disable it
+            if (!shouldBeVisible)
+            {
+                healthImages[i].enabled = false;
+            }
+        }
     }
 }
