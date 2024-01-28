@@ -9,6 +9,10 @@ public class ObjectSpawner : MonoBehaviour
     [SerializeField] private float spawnDelay = 2f;
     [SerializeField] private float leftBoundary = -1f;
     [SerializeField] private float rightBoundary = 1f;
+    [SerializeField] private int maxHitsBeforeGameOver = 3;
+    [SerializeField] private int maxMissesBeforeGameOver = 3;
+
+    private int missesCount = 0; // Counter for misses
 
     private void Start()
     {
@@ -33,15 +37,19 @@ public class ObjectSpawner : MonoBehaviour
         for (int i = 0; i < numPrefabsToInstantiate; i++)
         {
             GameObject randomPrefab = prefabs[Random.Range(0, prefabs.Length)];
-
-            // Generate a random X position within the specified range
             float randomX = Random.Range(leftBoundary, rightBoundary);
-
             float randomY = Random.Range(5f, 10f);
 
             instantiatedPrefabs[i] = Instantiate(randomPrefab, new Vector3(randomX, randomY, 0f), Quaternion.identity);
-
             instantiatedPrefabs[i].name = "Object";
+
+            // Attach the HitTracker script if not already attached
+            HitTracker hitTracker = instantiatedPrefabs[i].GetComponent<HitTracker>();
+            if (hitTracker == null)
+            {
+                hitTracker = instantiatedPrefabs[i].AddComponent<HitTracker>();
+                hitTracker.maxHits = maxHitsBeforeGameOver;
+            }
         }
 
         StartCoroutine(MovePrefabs(instantiatedPrefabs));
@@ -60,12 +68,31 @@ public class ObjectSpawner : MonoBehaviour
                     // Destroy prefabs when they leave the screen
                     if (prefabsToMove[i].transform.position.y < -10f)
                     {
+                        // Check if the prefab is not hit by "poop" before incrementing misses
+                        if (!prefabsToMove[i].GetComponent<HitTracker>().IsHit())
+                        {
+                            // Increase the misses count and display it in the console
+                            missesCount++;
+                            Debug.Log("Misses: " + missesCount);
+
+                            CheckGameOver();
+                        }
+
                         Destroy(prefabsToMove[i]);
                     }
                 }
             }
 
             yield return null;
+        }
+    }
+
+    private void CheckGameOver()
+    {
+        if (missesCount >= maxMissesBeforeGameOver)
+        {
+            // Game Over
+            Debug.Log("Game Over");
         }
     }
 }
