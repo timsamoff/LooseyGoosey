@@ -1,9 +1,10 @@
 
-# Goose Game
+# Loosey Goosey
 
 (Possibly) A game by Tim Samoff (tim@samoff.com)
 
-Audio by
+Audio by Josiah Samoff
+Animation by Vicki Samarin
 
 ## Description
 
