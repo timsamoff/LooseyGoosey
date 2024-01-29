@@ -4,7 +4,7 @@
 # Loosey Goosey
 
 ## About
-Loosey Goosey is not happy about all of the stuff that humans leave behind. Play as Loosey, and teach those nasty people a lesson — and reclaim nature only as a goose can do!
+Loosey Goosey is not happy about all of the stuff that humans leave behind. Play as Loosey and teach those nasty people a lesson — and reclaim nature only as a goose can do!
 
 Tim Samoff (tim@samoff.com): Game design and programming
 Josiah Samoff: Music and sound effects
