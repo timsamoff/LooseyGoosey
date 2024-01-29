@@ -10,7 +10,7 @@ Vicki Samaras: Vicki Samarin: Loosey Goosey art and animation
 ## Diversifiers
 
 * Impactful play - (Sponsored by dots.eco)
-* Sharing is caring - (Sponsored by Github)\
+* Sharing is caring - (Sponsored by Github)
 * Lunch Special
 * QuickDraw
 
