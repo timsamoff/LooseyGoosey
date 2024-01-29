@@ -19,7 +19,7 @@ Vicki Samaras: Vicki Samarin: Loosey Goosey art and animation
 ## How To Play
 
 1. Windows only.
-2. Download and extract [LooseyGoosey-WIN.zip](https://github.com/timsamoff/LooseyGoosey/blob/main/LooseyGoosey-WIN.zip) (click on the **Raw** button at the top left).
+2. Download and extract [LooseyGoosey-WIN.zip]([https://github.com/timsamoff/LooseyGoosey/blob/main/LooseyGoosey-WIN.zip](https://github.com/timsamoff/LooseyGoosey/raw/main/LooseyGoosey-WIN.zip)).
 3. Use the arrow keys (or WASD) and the space bar to mark Loosey's territory!
 
 ## License
