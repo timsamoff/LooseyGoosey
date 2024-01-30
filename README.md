@@ -22,7 +22,8 @@ Vicki Samaras: Vicki Samarin: Loosey Goosey art and animation
 ## How To Play
 
 1. [Play Loosey Goosey on itch.io](https://timsamoff.itch.io/loosey-goosey) or download and extract [LooseyGoosey-WIN.zip](https://github.com/timsamoff/LooseyGoosey/raw/main/LooseyGoosey-WIN.zip) (Windows only).
-3. Use the arrow keys (or WASD) and the space bar to mark Loosey's territory!
+2. Use the arrow keys (or WASD) and the space bar to mark Loosey's territory!
+3. (For those of you who need a little more literal help, poop on the people’s stuff; play for as long as possible; miss three things and the game will end.)
 
 ## License
 [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.en.html)
