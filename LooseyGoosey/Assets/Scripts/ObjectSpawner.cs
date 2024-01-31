@@ -21,7 +21,12 @@ public class ObjectSpawner : MonoBehaviour
     [SerializeField] private GameObject[] prefabs;
 
     [Header("Health Stuff")]
+    [SerializeField] private int healthImageIncrement = 1;
+    [SerializeField] private int maxHealthImagesToAdd = 3;
+    [SerializeField] private float healthTimer = 15f;
     [SerializeField] private Image[] healthImages;
+
+    private float timeSinceLastHealthImageAdded = 0f;
 
     private int missesCount = 0; // Counter for misses
     private float currentSpawnDelay;
@@ -121,6 +126,7 @@ public class ObjectSpawner : MonoBehaviour
     private void Update()
     {
         CheckGameOver();
+        CheckHealthTimer();
     }
 
     private void CheckGameOver()
@@ -141,6 +147,25 @@ public class ObjectSpawner : MonoBehaviour
         missesCount++;
         Debug.Log("Misses: " + missesCount);
         UpdateHealthUI();
+    }
+
+    private void CheckHealthTimer()
+    {
+        timeSinceLastHealthImageAdded += Time.deltaTime;
+
+        if (timeSinceLastHealthImageAdded >= healthTimer)
+        {
+            timeSinceLastHealthImageAdded = 0f;
+
+            if (currentHealth - missesCount < healthImages.Length && missesCount > 0)
+            {
+                int healthImagesToAdd = Mathf.Min(maxHealthImagesToAdd, healthImages.Length - currentHealth + missesCount);
+                currentHealth += healthImagesToAdd;
+                missesCount -= healthImagesToAdd;
+                UpdateHealthUI();
+                Debug.Log("Health images added: " + healthImagesToAdd);
+            }
+        }
     }
 
     private void UpdateHealthUI()

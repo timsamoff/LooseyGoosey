@@ -13,9 +13,9 @@ public class EnvironmentSpawner : MonoBehaviour
     [SerializeField] private float rightBoundary = 1f;
 
     [Header("Environmental Stuff")]
-    [SerializeField] private GameObject[] prefabs;
     [SerializeField] private float minScalePercentage = 90f;
     [SerializeField] private float maxScalePercentage = 110f;
+    [SerializeField] private GameObject[] prefabs;
 
     private void Start()
     {
