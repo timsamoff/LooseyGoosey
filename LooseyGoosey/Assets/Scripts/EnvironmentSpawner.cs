@@ -3,13 +3,17 @@ using System.Collections;
 
 public class EnvironmentSpawner : MonoBehaviour
 {
-    [SerializeField] private GameObject[] prefabs;
-    [SerializeField] private float speed = 5f;
-    [SerializeField] private int maxPrefabsToInstantiate = 5;
+    [Header("Settings Stuff")]
     [SerializeField] private float spawnDelay = 2f;
+    [SerializeField] private int maxPrefabsToInstantiate = 5;
+    [SerializeField] private float scrollSpeed = 5f;
+
+    [Header("Road Boundary")]
     [SerializeField] private float leftBoundary = -1f;
     [SerializeField] private float rightBoundary = 1f;
 
+    [Header("Environmental Stuff")]
+    [SerializeField] private GameObject[] prefabs;
     [SerializeField] private float minScalePercentage = 90f;
     [SerializeField] private float maxScalePercentage = 110f;
 
@@ -76,7 +80,7 @@ public class EnvironmentSpawner : MonoBehaviour
             {
                 if (prefabsToMove[i] != null)
                 {
-                    prefabsToMove[i].transform.Translate(Vector3.down * speed * Time.deltaTime, Space.World);
+                    prefabsToMove[i].transform.Translate(Vector3.down * scrollSpeed * Time.deltaTime, Space.World);
 
                     // Destroy prefabs when they leave the screen
                     if (prefabsToMove[i].transform.position.y < -10f)

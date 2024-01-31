@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class GooseController : MonoBehaviour
 {
+    [Header("Settings Stuff")]
     [SerializeField] private float movementSpeed = 5f;
     [SerializeField] private float maxRotationAngle = 10f;
 
