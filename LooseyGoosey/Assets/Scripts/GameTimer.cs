@@ -3,17 +3,15 @@ using UnityEngine.UI;
 
 public class GameTimer : MonoBehaviour
 {
-    [SerializeField]
-    private Text hoursText;
-
-    [SerializeField]
-    private Text minutesText;
-
-    [SerializeField]
-    private Text secondsText;
-
-    [SerializeField]
-    private Text millisecondsText;
+    [Header("Timer Stuff")]
+    [Tooltip("The Text object that will display the hours")]
+    [SerializeField] private Text hoursText;
+    [Tooltip("The Text object that will display the minutes")]
+    [SerializeField] private Text minutesText;
+    [Tooltip("The Text object that will display the seconds")]
+    [SerializeField] private Text secondsText;
+    [Tooltip("The Text object that will display the milliseconds")]
+    [SerializeField] private Text millisecondsText;
 
     private float timer;
     private bool isGameRunning = true;

@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class AudioFader : MonoBehaviour
 {
+    [Header("Settings Stuff")]
     [SerializeField] private float fadeTime = 2.0f;
     [SerializeField] private float targetVolume = 1.0f;
 
