@@ -2,10 +2,11 @@ using UnityEngine;
 
 public class PoopSpawner : MonoBehaviour
 {
+    [Header("Poop Settings")]
     [SerializeField] private GameObject poopPrefab;
     [SerializeField] private int numberOfSplats = 3;
     [SerializeField] private float splatInterval = 0.1f;
-    [SerializeField] private float poopSpeed = 5.0f;
+    [SerializeField] private float scrollSpeed = 5.0f;
     [SerializeField] private AudioClip[] poopSounds;
 
     private AudioSource audioSource;
@@ -53,7 +54,7 @@ public class PoopSpawner : MonoBehaviour
         newPoop.transform.parent = null;
 
         // Attach the scrolling script to the poopy
-        newPoop.AddComponent<PoopScrolling>().Initialize(poopSpeed);
+        newPoop.AddComponent<PoopScrolling>().Initialize(scrollSpeed);
 
         newPoop.name = "Poop";
     }

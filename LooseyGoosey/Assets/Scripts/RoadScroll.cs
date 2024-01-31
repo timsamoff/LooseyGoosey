@@ -3,9 +3,10 @@ using UnityEngine;
 
 public class RoadScroll : MonoBehaviour
 {
-    [SerializeField] private GameObject roadPrefab;  // The road
+    [Header("Settings Stuff")]
+    [SerializeField] private GameObject roadPrefab;
+    [SerializeField] private int numberOfPrefabs = 3;
     [SerializeField] private float scrollSpeed = 5f;
-    [SerializeField] private int numberOfPrefabs = 3;  // Number of road prefabs needed to cover the screen height 
 
     private float screenHeight;
     private List<GameObject> roadPrefabs = new List<GameObject>();

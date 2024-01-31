@@ -5,15 +5,22 @@ using UnityEngine.UI;
 
 public class ObjectSpawner : MonoBehaviour
 {
-    [SerializeField] private GameObject[] prefabs;
-    [SerializeField] private float speed = 5f;
+    [Header("Settings Stuff")]
     [SerializeField] private int maxPrefabsToInstantiate = 5;
     [SerializeField] private float initialSpawnDelay = 2f;
-    [SerializeField] private float leftBoundary = -1f;
-    [SerializeField] private float rightBoundary = 1f;
-    [SerializeField] private int maxMissesBeforeGameOver = 3;
     [SerializeField] private float decreaseRate = 0.1f;
     [SerializeField] private float decreaseInterval = 15f;
+    [SerializeField] private float scrollSpeed = 5f;
+    [SerializeField] private int maxMissesBeforeGameOver = 3;
+
+    [Header("Road Boundary")]
+    [SerializeField] private float leftBoundary = -1f;
+    [SerializeField] private float rightBoundary = 1f;
+
+    [Header("People Stuff")]
+    [SerializeField] private GameObject[] prefabs;
+
+    [Header("Health Stuff")]
     [SerializeField] private Image[] healthImages;
 
     private int missesCount = 0; // Counter for misses
@@ -89,7 +96,7 @@ public class ObjectSpawner : MonoBehaviour
             {
                 if (prefabsToMove[i] != null)
                 {
-                    prefabsToMove[i].transform.Translate(Vector3.down * speed * Time.deltaTime);
+                    prefabsToMove[i].transform.Translate(Vector3.down * scrollSpeed * Time.deltaTime);
 
                     // Check if the prefab leaves the screen
                     if (prefabsToMove[i].transform.position.y < -10f)
