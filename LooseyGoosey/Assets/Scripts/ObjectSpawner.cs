@@ -21,12 +21,15 @@ public class ObjectSpawner : MonoBehaviour
     [SerializeField] private GameObject[] prefabs;
 
     [Header("Health Stuff")]
-    [SerializeField] private int healthImageIncrement = 1;
+    // [SerializeField] private int healthImageIncrement = 1;
     [SerializeField] private int maxHealthImagesToAdd = 3;
     [SerializeField] private float healthTimer = 15f;
+    [SerializeField] private AudioClip healthRegenSound;
     [SerializeField] private Image[] healthImages;
 
     private float timeSinceLastHealthImageAdded = 0f;
+
+    private AudioSource audioSource;
 
     private int missesCount = 0; // Counter for misses
     private float currentSpawnDelay;
@@ -34,6 +37,7 @@ public class ObjectSpawner : MonoBehaviour
 
     private void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         currentSpawnDelay = initialSpawnDelay;
         currentHealth = healthImages.Length;
         StartCoroutine(SpawnRoutine());
@@ -163,6 +167,12 @@ public class ObjectSpawner : MonoBehaviour
                 currentHealth += healthImagesToAdd;
                 missesCount -= healthImagesToAdd;
                 UpdateHealthUI();
+
+                if (audioSource != null && healthRegenSound != null)
+                {
+                    audioSource.PlayOneShot(healthRegenSound);
+                }
+
                 Debug.Log("Health images added: " + healthImagesToAdd);
             }
         }

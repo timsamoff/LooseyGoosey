@@ -216,8 +216,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roadPrefab: {fileID: 7205485409953191507, guid: 12b37e91d915c134cb010a1e4d4253a0, type: 3}
-  scrollSpeed: 5
   numberOfPrefabs: 3
+  scrollSpeed: 5
 --- !u!1 &296427362
 GameObject:
   m_ObjectHideFlags: 0
@@ -402,6 +402,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f90e9f041725e4742a735b69c9f10936, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxPrefabsToInstantiate: 1
+  initialSpawnDelay: 2
+  decreaseRate: 0.25
+  decreaseInterval: 15
+  scrollSpeed: 5
+  maxMissesBeforeGameOver: 3
+  leftBoundary: -2
+  rightBoundary: 2
   prefabs:
   - {fileID: 1537538871177905182, guid: d08040efecacd7545bee66cbdef6cde6, type: 3}
   - {fileID: 3754826545715845159, guid: c41c238536aa0e243b66e52bf2fce7fb, type: 3}
@@ -412,14 +420,9 @@ MonoBehaviour:
   - {fileID: 8738509271483263830, guid: 3242587845455074a95e287efe737c14, type: 3}
   - {fileID: 6057574625008925595, guid: 744ec248e95fdb448982b3a01f955678, type: 3}
   - {fileID: 7533442912439136173, guid: 6b361581f86413048807f414be5fe6aa, type: 3}
-  speed: 5
-  maxPrefabsToInstantiate: 1
-  initialSpawnDelay: 2
-  leftBoundary: -2
-  rightBoundary: 2
-  maxMissesBeforeGameOver: 3
-  decreaseRate: 0.25
-  decreaseInterval: 15
+  healthImageIncrement: 1
+  maxHealthImagesToAdd: 3
+  healthTimer: 15
   healthImages:
   - {fileID: 58382519}
   - {fileID: 513875845}
@@ -1318,7 +1321,7 @@ MonoBehaviour:
   poopPrefab: {fileID: 5271413989846948589, guid: f88f0ad840d5ea541a29dfbb1354740f, type: 3}
   numberOfSplats: 3
   splatInterval: 0.01
-  poopSpeed: 5
+  scrollSpeed: 5
   poopSounds:
   - {fileID: 8300000, guid: 938f7ef845611684b97cd686b75dfe0a, type: 3}
   - {fileID: 8300000, guid: 0cc591976574ead4d9ff95625f7d45b1, type: 3}
@@ -1329,15 +1332,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: d3ebd2d27e3968e45ab4643ed5ad3d98, type: 3}
   - {fileID: 8300000, guid: 9e769dc81c74b3240a3e95f50590598b, type: 3}
   - {fileID: 8300000, guid: ef944c2971c13054b97821b4964fc9b3, type: 3}
-  - {fileID: 8300000, guid: 5c3f994b2166dc4478e898704098ef8d, type: 3}
-  - {fileID: 8300000, guid: 0cc591976574ead4d9ff95625f7d45b1, type: 3}
-  - {fileID: 8300000, guid: 6cc0b86d150be13448d29838b8c474e3, type: 3}
-  - {fileID: 8300000, guid: 3606cc63fb6541d4ea2797915d118275, type: 3}
-  - {fileID: 8300000, guid: afee90e95a334f04ba6335593fad8f04, type: 3}
-  - {fileID: 8300000, guid: 677d68557e6c11b4e964ed85affe4983, type: 3}
-  - {fileID: 8300000, guid: d3ebd2d27e3968e45ab4643ed5ad3d98, type: 3}
-  - {fileID: 8300000, guid: 9e769dc81c74b3240a3e95f50590598b, type: 3}
-  - {fileID: 8300000, guid: afee90e95a334f04ba6335593fad8f04, type: 3}
 --- !u!82 &1470907824
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1821,6 +1815,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2586a9afae18a446aae8313cceac647, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnDelay: 2
+  maxPrefabsToInstantiate: 7
+  scrollSpeed: 5
+  leftBoundary: -2.5
+  rightBoundary: 2.5
+  minScalePercentage: 90
+  maxScalePercentage: 110
   prefabs:
   - {fileID: 4626901836391917213, guid: bfa5b7f2aeb79df4bbb0ba35c988da23, type: 3}
   - {fileID: 3315382526212809460, guid: d9cfa6073190d044f85ecce856bc224e, type: 3}
@@ -1838,13 +1839,6 @@ MonoBehaviour:
   - {fileID: 6846757058867088158, guid: 1d163d1dd6becd044b0993bf9fb89049, type: 3}
   - {fileID: 6846757058867088158, guid: 15bd7c55a585cb046ad42d7a8291d723, type: 3}
   - {fileID: 6846757058867088158, guid: 92daeb2868cd0cd4cb0be8858f443b39, type: 3}
-  speed: 5
-  maxPrefabsToInstantiate: 7
-  spawnDelay: 2
-  leftBoundary: -2.5
-  rightBoundary: 2.5
-  minScalePercentage: 90
-  maxScalePercentage: 110
 --- !u!1 &1834286543
 GameObject:
   m_ObjectHideFlags: 0
