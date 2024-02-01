@@ -10,8 +10,8 @@ public class MissTracker : MonoBehaviour
         if (other.CompareTag("poop"))
         {
             isHit = true;
-            // Notify ObjectSpawner of a hit
-            Debug.Log("Prefab hit by poop!");
+
+            // Debug.Log("Prefab hit by poop!");
         }
     }
 }
