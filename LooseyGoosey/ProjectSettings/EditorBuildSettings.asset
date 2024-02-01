@@ -12,6 +12,6 @@ EditorBuildSettings:
     path: Assets/Scenes/LooseyGoosey.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
-    path: Assets/Scenes/End-Lose.unity
+    path: Assets/Scenes/End.unity
     guid: 74b438e9044d62840b93d899e90b9a7c
   m_configObjects: {}

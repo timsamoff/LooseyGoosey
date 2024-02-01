@@ -17,6 +17,12 @@ public class GameTimer : MonoBehaviour
     private bool isGameRunning = true;
     private float lastTimeValue;
 
+
+    private void Start()
+    {
+        isGameRunning = true;
+    }
+
     void Update()
     {
         if (isGameRunning)
