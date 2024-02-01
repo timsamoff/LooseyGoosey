@@ -35,9 +35,13 @@ public class ObjectSpawner : MonoBehaviour
     private float currentSpawnDelay;
     private int currentHealth;
 
+    private GameTimer gameTimer;
+
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
+        gameTimer = FindObjectOfType<GameTimer>();
+
         currentSpawnDelay = initialSpawnDelay;
         currentHealth = healthImages.Length;
         StartCoroutine(SpawnRoutine());
@@ -138,6 +142,8 @@ public class ObjectSpawner : MonoBehaviour
         if (missesCount >= maxMissesBeforeGameOver)
         {
             Debug.Log("Game Over");
+
+            gameTimer.EndGame();
 
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;

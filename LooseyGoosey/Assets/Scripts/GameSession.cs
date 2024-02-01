@@ -1,37 +1,29 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GameSession : MonoBehaviour
 {
-    void Start()
+    private static GameSession instance;
+
+    private GameTimer gameTimer;
+
+    private void Awake()
     {
-        // Time.timeScale = 0;
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
+        if (instance == null)
+        {
+            instance = this;
+
+            DontDestroyOnLoad(gameObject);
+
+            gameTimer = GetComponent<GameTimer>();
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
-    public void PlayGame()
+    public GameTimer GetGameTimer()
     {
-        Time.timeScale = 1;
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-
-        SceneManager.LoadScene(1);
-    }
-
-    public void RestartGame()
-    {
-        // Time.timeScale = 0;
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-
-        SceneManager.LoadScene(0);
-    }
-
-    public void QuitGame()
-    {
-        Application.Quit();
+        return gameTimer;
     }
 }
