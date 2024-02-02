@@ -408,6 +408,7 @@ MonoBehaviour:
   decreaseRate: 0.25
   decreaseInterval: 15
   scrollSpeed: 5
+  durationBeforeScreenShake: 0
   maxMissesBeforeGameOver: 3
   leftBoundary: -2
   rightBoundary: 2
@@ -423,6 +424,18 @@ MonoBehaviour:
   - {fileID: 7533442912439136173, guid: 6b361581f86413048807f414be5fe6aa, type: 3}
   maxHealthImagesToAdd: 3
   healthTimer: 15
+  healthLoseSound:
+  - {fileID: 8300000, guid: 938f7ef845611684b97cd686b75dfe0a, type: 3}
+  - {fileID: 8300000, guid: 0cc591976574ead4d9ff95625f7d45b1, type: 3}
+  - {fileID: 8300000, guid: 6cc0b86d150be13448d29838b8c474e3, type: 3}
+  - {fileID: 8300000, guid: 3606cc63fb6541d4ea2797915d118275, type: 3}
+  - {fileID: 8300000, guid: afee90e95a334f04ba6335593fad8f04, type: 3}
+  - {fileID: 8300000, guid: 677d68557e6c11b4e964ed85affe4983, type: 3}
+  - {fileID: 8300000, guid: d3ebd2d27e3968e45ab4643ed5ad3d98, type: 3}
+  - {fileID: 8300000, guid: 9e769dc81c74b3240a3e95f50590598b, type: 3}
+  - {fileID: 8300000, guid: ef944c2971c13054b97821b4964fc9b3, type: 3}
+  - {fileID: 8300000, guid: 1c9d2a5ab771dca4ca3bcea74d7ec533, type: 3}
+  - {fileID: 8300000, guid: 095861e919b623843b8cecc6cf0cf8c3, type: 3}
   healthRegenSound: {fileID: 8300000, guid: 5c3f994b2166dc4478e898704098ef8d, type: 3}
   healthImages:
   - {fileID: 58382519}
@@ -679,6 +692,7 @@ GameObject:
   - component: {fileID: 519420029}
   - component: {fileID: 519420033}
   - component: {fileID: 519420034}
+  - component: {fileID: 519420035}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -870,6 +884,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fadeTime: 2
   targetVolume: 0.5
+--- !u!114 &519420035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a8e6cce21764a042a6d997ae62820fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shakeDuration: 0
+  shakeMagnitude: 0.5
 --- !u!1 &599416131
 GameObject:
   m_ObjectHideFlags: 0
@@ -1420,15 +1448,9 @@ MonoBehaviour:
   splatInterval: 0.01
   scrollSpeed: 5
   poopSounds:
-  - {fileID: 8300000, guid: 938f7ef845611684b97cd686b75dfe0a, type: 3}
-  - {fileID: 8300000, guid: 0cc591976574ead4d9ff95625f7d45b1, type: 3}
-  - {fileID: 8300000, guid: 6cc0b86d150be13448d29838b8c474e3, type: 3}
-  - {fileID: 8300000, guid: 3606cc63fb6541d4ea2797915d118275, type: 3}
-  - {fileID: 8300000, guid: afee90e95a334f04ba6335593fad8f04, type: 3}
-  - {fileID: 8300000, guid: 677d68557e6c11b4e964ed85affe4983, type: 3}
-  - {fileID: 8300000, guid: d3ebd2d27e3968e45ab4643ed5ad3d98, type: 3}
-  - {fileID: 8300000, guid: 9e769dc81c74b3240a3e95f50590598b, type: 3}
-  - {fileID: 8300000, guid: ef944c2971c13054b97821b4964fc9b3, type: 3}
+  - {fileID: 8300000, guid: 09730ef91f3a3c04fa523205aa4b35c0, type: 3}
+  - {fileID: 8300000, guid: bb5f864f9c16f424eb26e45f168230c9, type: 3}
+  - {fileID: 8300000, guid: f827fea55e91dc44a91cfee78266c470, type: 3}
 --- !u!82 &1470907824
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2366,5 +2388,5 @@ SceneRoots:
   - {fileID: 1834286545}
   - {fileID: 599416133}
   - {fileID: 1550433418}
-  - {fileID: 1997823390}
   - {fileID: 1740976840}
+  - {fileID: 1997823390}

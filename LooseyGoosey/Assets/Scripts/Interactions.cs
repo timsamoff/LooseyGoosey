@@ -30,6 +30,8 @@ public class Interactions : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
+        GameSession.instance.DestroyGameSession();
+
         SceneManager.LoadScene(0);
     }
 

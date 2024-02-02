@@ -11,6 +11,7 @@ public class ObjectSpawner : MonoBehaviour
     [SerializeField] private float decreaseRate = 0.1f;
     [SerializeField] private float decreaseInterval = 15f;
     [SerializeField] private float scrollSpeed = 5f;
+    [SerializeField] private float durationBeforeScreenShake = 0.2f;
     [SerializeField] private int maxMissesBeforeGameOver = 3;
 
     [Header("Road Boundary")]
@@ -24,6 +25,7 @@ public class ObjectSpawner : MonoBehaviour
     // [SerializeField] private int healthImageIncrement = 1;
     [SerializeField] private int maxHealthImagesToAdd = 3;
     [SerializeField] private float healthTimer = 15f;
+    [SerializeField] private AudioClip[] healthLoseSound;
     [SerializeField] private AudioClip healthRegenSound;
     [SerializeField] private Image[] healthImages;
 
@@ -37,10 +39,13 @@ public class ObjectSpawner : MonoBehaviour
 
     private GameTimer gameTimer;
 
+    private ScreenShake screenShake;
+
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
         gameTimer = FindObjectOfType<GameTimer>();
+        screenShake = Camera.main.GetComponent<ScreenShake>();
 
         currentSpawnDelay = initialSpawnDelay;
         currentHealth = healthImages.Length;
@@ -70,7 +75,7 @@ public class ObjectSpawner : MonoBehaviour
     private void DecreaseDelay()
     {
         currentSpawnDelay -= decreaseRate;
-        currentSpawnDelay = Mathf.Max(currentSpawnDelay, 0.1f); // Ensure it doesn't go below 0.1
+        currentSpawnDelay = Mathf.Max(currentSpawnDelay, 0.1f); // Don't go below 0.1
         Debug.Log("Spawn delay decreased to: " + currentSpawnDelay);
     }
 
@@ -139,7 +144,7 @@ public class ObjectSpawner : MonoBehaviour
 
     private void CheckGameOver()
     {
-        if (missesCount >= maxMissesBeforeGameOver)
+        if (missesCount >= maxMissesBeforeGameOver && !audioSource.isPlaying)
         {
             Debug.Log("Game Over");
 
@@ -157,6 +162,17 @@ public class ObjectSpawner : MonoBehaviour
         missesCount++;
         Debug.Log("Misses: " + missesCount);
         UpdateHealthUI();
+
+        if (screenShake != null)
+        {
+            screenShake.StartShake(durationBeforeScreenShake);
+        }
+
+        if (audioSource != null && healthLoseSound.Length > 0)
+        {
+            int randomIndex = Random.Range(0, healthLoseSound.Length);
+            audioSource.PlayOneShot(healthLoseSound[randomIndex]);
+        }
     }
 
     private void CheckHealthTimer()
