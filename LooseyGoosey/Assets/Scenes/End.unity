@@ -556,6 +556,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ace61a8ddb1eb62489da71da1561321d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gooseSounds:
+  - {fileID: 8300000, guid: 938f7ef845611684b97cd686b75dfe0a, type: 3}
+  - {fileID: 8300000, guid: 0cc591976574ead4d9ff95625f7d45b1, type: 3}
+  - {fileID: 8300000, guid: 6cc0b86d150be13448d29838b8c474e3, type: 3}
+  - {fileID: 8300000, guid: 3606cc63fb6541d4ea2797915d118275, type: 3}
+  - {fileID: 8300000, guid: afee90e95a334f04ba6335593fad8f04, type: 3}
+  - {fileID: 8300000, guid: 677d68557e6c11b4e964ed85affe4983, type: 3}
+  - {fileID: 8300000, guid: d3ebd2d27e3968e45ab4643ed5ad3d98, type: 3}
+  - {fileID: 8300000, guid: 9e769dc81c74b3240a3e95f50590598b, type: 3}
+  - {fileID: 8300000, guid: ef944c2971c13054b97821b4964fc9b3, type: 3}
+  - {fileID: 8300000, guid: 1c9d2a5ab771dca4ca3bcea74d7ec533, type: 3}
+  - {fileID: 8300000, guid: 095861e919b623843b8cecc6cf0cf8c3, type: 3}
   bestTimeScore: {fileID: 1322174191}
   yourTimeScore: {fileID: 412990009}
 --- !u!4 &417664364
