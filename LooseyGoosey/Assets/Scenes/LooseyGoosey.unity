@@ -408,7 +408,7 @@ MonoBehaviour:
   decreaseRate: 0.25
   decreaseInterval: 15
   scrollSpeed: 5
-  durationBeforeScreenShake: 0
+  durationBeforeScreenShake: 0.1
   maxMissesBeforeGameOver: 3
   leftBoundary: -2
   rightBoundary: 2
@@ -422,7 +422,6 @@ MonoBehaviour:
   - {fileID: 8738509271483263830, guid: 3242587845455074a95e287efe737c14, type: 3}
   - {fileID: 6057574625008925595, guid: 744ec248e95fdb448982b3a01f955678, type: 3}
   - {fileID: 7533442912439136173, guid: 6b361581f86413048807f414be5fe6aa, type: 3}
-  maxHealthImagesToAdd: 3
   healthTimer: 15
   healthLoseSound:
   - {fileID: 8300000, guid: 938f7ef845611684b97cd686b75dfe0a, type: 3}
@@ -897,7 +896,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shakeDuration: 0
-  shakeMagnitude: 0.5
+  shakeMagnitude: 0.7
 --- !u!1 &599416131
 GameObject:
   m_ObjectHideFlags: 0

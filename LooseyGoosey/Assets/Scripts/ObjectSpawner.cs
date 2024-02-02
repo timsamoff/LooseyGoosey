@@ -22,8 +22,6 @@ public class ObjectSpawner : MonoBehaviour
     [SerializeField] private GameObject[] prefabs;
 
     [Header("Health Stuff")]
-    // [SerializeField] private int healthImageIncrement = 1;
-    [SerializeField] private int maxHealthImagesToAdd = 3;
     [SerializeField] private float healthTimer = 15f;
     [SerializeField] private AudioClip[] healthLoseSound;
     [SerializeField] private AudioClip healthRegenSound;
@@ -33,9 +31,9 @@ public class ObjectSpawner : MonoBehaviour
 
     private AudioSource audioSource;
 
-    private int missesCount = 0; // Counter for misses
+    private int missesCount = 0;
+    private int currentHealth = 3;
     private float currentSpawnDelay;
-    private int currentHealth;
 
     private GameTimer gameTimer;
 
@@ -48,7 +46,6 @@ public class ObjectSpawner : MonoBehaviour
         screenShake = Camera.main.GetComponent<ScreenShake>();
 
         currentSpawnDelay = initialSpawnDelay;
-        currentHealth = healthImages.Length;
         StartCoroutine(SpawnRoutine());
         StartCoroutine(DecreaseSpawnDelay());
         UpdateHealthUI();
@@ -94,7 +91,6 @@ public class ObjectSpawner : MonoBehaviour
             instantiatedPrefabs[i] = Instantiate(randomPrefab, new Vector3(randomX, randomY, 0f), Quaternion.identity);
             instantiatedPrefabs[i].name = "Object";
 
-            // Attach the MissTracker script if not already attached
             MissTracker missTracker = instantiatedPrefabs[i].GetComponent<MissTracker>();
             if (missTracker == null)
             {
@@ -157,9 +153,49 @@ public class ObjectSpawner : MonoBehaviour
         }
     }
 
-    public void IncrementMisses()
+    private void CheckHealthTimer()
+    {
+        timeSinceLastHealthImageAdded += Time.deltaTime;
+
+        if (timeSinceLastHealthImageAdded >= healthTimer)
+        {
+            timeSinceLastHealthImageAdded = 0f;
+
+            IncrementHealthAndDecrementMisses();
+        }
+    }
+
+    private void IncrementHealthAndDecrementMisses()
+    {
+        if (currentHealth >= 3 && missesCount <= 0)
+        {
+            return;
+        }
+
+        int healthImagesToAdd = Mathf.Min(1, healthImages.Length - currentHealth);
+        currentHealth = Mathf.Min(currentHealth + healthImagesToAdd, 3);
+        missesCount = Mathf.Max(missesCount - 1, 0);
+
+        UpdateHealthUI();
+
+        if (audioSource != null && healthRegenSound != null && healthImagesToAdd > 0)
+        {
+            audioSource.PlayOneShot(healthRegenSound);
+        }
+
+        Debug.Log("Health images added: " + healthImagesToAdd);
+        Debug.Log("Misses decremented to: " + missesCount);
+    }
+
+    private void IncrementMisses()
     {
         missesCount++;
+
+        // Clamp missesCount between 0 and 3
+        missesCount = Mathf.Clamp(missesCount, 0, 3);
+
+        currentHealth = Mathf.Max(currentHealth - 1, 0);
+
         Debug.Log("Misses: " + missesCount);
         UpdateHealthUI();
 
@@ -175,37 +211,13 @@ public class ObjectSpawner : MonoBehaviour
         }
     }
 
-    private void CheckHealthTimer()
-    {
-        timeSinceLastHealthImageAdded += Time.deltaTime;
-
-        if (timeSinceLastHealthImageAdded >= healthTimer)
-        {
-            timeSinceLastHealthImageAdded = 0f;
-
-            if (currentHealth - missesCount < healthImages.Length && missesCount > 0)
-            {
-                int healthImagesToAdd = Mathf.Min(maxHealthImagesToAdd, healthImages.Length - currentHealth + missesCount);
-                currentHealth += healthImagesToAdd;
-                missesCount -= healthImagesToAdd;
-                UpdateHealthUI();
-
-                if (audioSource != null && healthRegenSound != null)
-                {
-                    audioSource.PlayOneShot(healthRegenSound);
-                }
-
-                Debug.Log("Health images added: " + healthImagesToAdd);
-            }
-        }
-    }
-
     private void UpdateHealthUI()
     {
         // Update the UI images based on the remaining health
         for (int i = 0; i < healthImages.Length; i++)
         {
-            bool shouldBeVisible = i < currentHealth - missesCount;
+            bool shouldBeVisible = i < currentHealth;
+
             healthImages[i].enabled = shouldBeVisible;
 
             // If the image should not be visible, disable it
