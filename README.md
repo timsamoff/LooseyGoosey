@@ -1,7 +1,7 @@
 
 <img src="https://github.com/timsamoff/LooseyGoosey/blob/main/prod/LooseyGooseyIcon.png?raw=true" width="250px">
 
-# Loosey Goosey
+# Loosey Goosey _(v2.0!)_
 
 ## About
 Loosey Goosey is not happy about all of the stuff that humans leave behind. Play as Loosey and teach those nasty people a lesson — and reclaim nature only as a goose can do!
