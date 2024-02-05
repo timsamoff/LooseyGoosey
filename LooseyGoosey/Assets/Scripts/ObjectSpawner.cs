@@ -149,7 +149,7 @@ public class ObjectSpawner : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
 
-            SceneManager.LoadScene(2);
+            SceneManager.LoadScene(3);
         }
     }
 

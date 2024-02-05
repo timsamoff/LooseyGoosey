@@ -42,11 +42,11 @@ public class Interactions : MonoBehaviour
             }
             if (restart)
             {
-                SceneManager.LoadScene(0);
+                SceneManager.LoadScene(1);
             }
             if (play)
             {
-                SceneManager.LoadScene(1);
+                SceneManager.LoadScene(2);
             }
         }
     }
