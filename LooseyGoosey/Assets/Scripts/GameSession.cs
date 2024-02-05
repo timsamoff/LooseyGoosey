@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class GameSession : MonoBehaviour
 {
-    private static GameSession instance;
+    public static GameSession instance;
 
     private GameTimer gameTimer;
 
@@ -25,5 +25,10 @@ public class GameSession : MonoBehaviour
     public GameTimer GetGameTimer()
     {
         return gameTimer;
+    }
+
+    public void DestroyGameSession()
+    {
+        Destroy(gameObject);
     }
 }

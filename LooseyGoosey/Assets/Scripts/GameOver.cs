@@ -37,7 +37,7 @@ public class GameOver : MonoBehaviour
                 Debug.Log("Best Time In Milliseconds: " + bestTimeInMilliseconds);
 
                 // Compare times in milliseconds
-                if (yourTimeInMilliseconds >= bestTimeInMilliseconds)
+                if (yourTimeInMilliseconds > bestTimeInMilliseconds)
                 {
                     // If the player achieves or matches the best time
                     bestTime = yourTime;

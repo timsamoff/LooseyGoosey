@@ -11,6 +11,7 @@ public class ObjectSpawner : MonoBehaviour
     [SerializeField] private float decreaseRate = 0.1f;
     [SerializeField] private float decreaseInterval = 15f;
     [SerializeField] private float scrollSpeed = 5f;
+    [SerializeField] private float durationBeforeScreenShake = 0.2f;
     [SerializeField] private int maxMissesBeforeGameOver = 3;
 
     [Header("Road Boundary")]
@@ -21,9 +22,8 @@ public class ObjectSpawner : MonoBehaviour
     [SerializeField] private GameObject[] prefabs;
 
     [Header("Health Stuff")]
-    // [SerializeField] private int healthImageIncrement = 1;
-    [SerializeField] private int maxHealthImagesToAdd = 3;
     [SerializeField] private float healthTimer = 15f;
+    [SerializeField] private AudioClip[] healthLoseSound;
     [SerializeField] private AudioClip healthRegenSound;
     [SerializeField] private Image[] healthImages;
 
@@ -31,19 +31,21 @@ public class ObjectSpawner : MonoBehaviour
 
     private AudioSource audioSource;
 
-    private int missesCount = 0; // Counter for misses
+    private int missesCount = 0;
+    private int currentHealth = 3;
     private float currentSpawnDelay;
-    private int currentHealth;
 
     private GameTimer gameTimer;
+
+    private ScreenShake screenShake;
 
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
         gameTimer = FindObjectOfType<GameTimer>();
+        screenShake = Camera.main.GetComponent<ScreenShake>();
 
         currentSpawnDelay = initialSpawnDelay;
-        currentHealth = healthImages.Length;
         StartCoroutine(SpawnRoutine());
         StartCoroutine(DecreaseSpawnDelay());
         UpdateHealthUI();
@@ -70,7 +72,7 @@ public class ObjectSpawner : MonoBehaviour
     private void DecreaseDelay()
     {
         currentSpawnDelay -= decreaseRate;
-        currentSpawnDelay = Mathf.Max(currentSpawnDelay, 0.1f); // Ensure it doesn't go below 0.1
+        currentSpawnDelay = Mathf.Max(currentSpawnDelay, 0.1f); // Don't go below 0.1
         Debug.Log("Spawn delay decreased to: " + currentSpawnDelay);
     }
 
@@ -89,7 +91,6 @@ public class ObjectSpawner : MonoBehaviour
             instantiatedPrefabs[i] = Instantiate(randomPrefab, new Vector3(randomX, randomY, 0f), Quaternion.identity);
             instantiatedPrefabs[i].name = "Object";
 
-            // Attach the MissTracker script if not already attached
             MissTracker missTracker = instantiatedPrefabs[i].GetComponent<MissTracker>();
             if (missTracker == null)
             {
@@ -139,7 +140,7 @@ public class ObjectSpawner : MonoBehaviour
 
     private void CheckGameOver()
     {
-        if (missesCount >= maxMissesBeforeGameOver)
+        if (missesCount >= maxMissesBeforeGameOver && !audioSource.isPlaying)
         {
             Debug.Log("Game Over");
 
@@ -148,15 +149,8 @@ public class ObjectSpawner : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
 
-            SceneManager.LoadScene(2);
+            SceneManager.LoadScene(3);
         }
-    }
-
-    public void IncrementMisses()
-    {
-        missesCount++;
-        Debug.Log("Misses: " + missesCount);
-        UpdateHealthUI();
     }
 
     private void CheckHealthTimer()
@@ -167,20 +161,53 @@ public class ObjectSpawner : MonoBehaviour
         {
             timeSinceLastHealthImageAdded = 0f;
 
-            if (currentHealth - missesCount < healthImages.Length && missesCount > 0)
-            {
-                int healthImagesToAdd = Mathf.Min(maxHealthImagesToAdd, healthImages.Length - currentHealth + missesCount);
-                currentHealth += healthImagesToAdd;
-                missesCount -= healthImagesToAdd;
-                UpdateHealthUI();
+            IncrementHealthAndDecrementMisses();
+        }
+    }
 
-                if (audioSource != null && healthRegenSound != null)
-                {
-                    audioSource.PlayOneShot(healthRegenSound);
-                }
+    private void IncrementHealthAndDecrementMisses()
+    {
+        if (currentHealth >= 3 && missesCount <= 0)
+        {
+            return;
+        }
 
-                Debug.Log("Health images added: " + healthImagesToAdd);
-            }
+        int healthImagesToAdd = Mathf.Min(1, healthImages.Length - currentHealth);
+        currentHealth = Mathf.Min(currentHealth + healthImagesToAdd, 3);
+        missesCount = Mathf.Max(missesCount - 1, 0);
+
+        UpdateHealthUI();
+
+        if (audioSource != null && healthRegenSound != null && healthImagesToAdd > 0)
+        {
+            audioSource.PlayOneShot(healthRegenSound);
+        }
+
+        Debug.Log("Health images added: " + healthImagesToAdd);
+        Debug.Log("Misses decremented to: " + missesCount);
+    }
+
+    private void IncrementMisses()
+    {
+        missesCount++;
+
+        // Clamp missesCount between 0 and 3
+        missesCount = Mathf.Clamp(missesCount, 0, 3);
+
+        currentHealth = Mathf.Max(currentHealth - 1, 0);
+
+        Debug.Log("Misses: " + missesCount);
+        UpdateHealthUI();
+
+        if (screenShake != null)
+        {
+            screenShake.StartShake(durationBeforeScreenShake);
+        }
+
+        if (audioSource != null && healthLoseSound.Length > 0)
+        {
+            int randomIndex = Random.Range(0, healthLoseSound.Length);
+            audioSource.PlayOneShot(healthLoseSound[randomIndex]);
         }
     }
 
@@ -189,7 +216,8 @@ public class ObjectSpawner : MonoBehaviour
         // Update the UI images based on the remaining health
         for (int i = 0; i < healthImages.Length; i++)
         {
-            bool shouldBeVisible = i < currentHealth - missesCount;
+            bool shouldBeVisible = i < currentHealth;
+
             healthImages[i].enabled = shouldBeVisible;
 
             // If the image should not be visible, disable it

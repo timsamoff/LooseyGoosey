@@ -5,14 +5,59 @@ using UnityEngine.SceneManagement;
 
 public class Interactions : MonoBehaviour
 {
+    [Header("Sound Effects")]
+    [SerializeField] private AudioClip[] gooseSounds;
+
+    private AudioSource audioSource;
+
+    [Header("Text Prompts")]
     [SerializeField] private Text bestTimeScore;
     [SerializeField] private Text yourTimeScore;
 
+    private bool play = false;
+    private bool quit = false;
+    private bool restart = false;
+
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
+
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
+
         // Time.timeScale = 0;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+    }
+
+    private void Update()
+    {
+        if (!audioSource.isPlaying)
+        {
+            if (quit)
+            {
+                Application.Quit();
+            }
+            if (restart)
+            {
+                SceneManager.LoadScene(1);
+            }
+            if (play)
+            {
+                SceneManager.LoadScene(2);
+            }
+        }
+    }
+
+    private void PlaySound()
+    {
+        if (audioSource)
+        {
+            int randomIndex = UnityEngine.Random.Range(0, gooseSounds.Length);
+            audioSource.PlayOneShot(gooseSounds[randomIndex]);
+        }
     }
 
     public void PlayGame()
@@ -20,8 +65,9 @@ public class Interactions : MonoBehaviour
         // Time.timeScale = 1;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        PlaySound();
 
-        SceneManager.LoadScene(1);
+        play = true;
     }
 
     public void RestartGame()
@@ -30,16 +76,24 @@ public class Interactions : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
-        SceneManager.LoadScene(0);
+        GameSession.instance.DestroyGameSession();
+
+        PlaySound();
+
+        restart = true;
     }
 
     public void QuitGame()
     {
-        Application.Quit();
+        PlaySound();
+
+        quit = true;
     }
 
     public void ResetBestTime()
     {
+        PlaySound();
+
         // Reset the BestTime save slot in PlayerPrefs
         PlayerPrefs.DeleteKey("BestTime");
         Debug.Log("BestTime reset!");
