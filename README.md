@@ -1,5 +1,5 @@
 
-<img src="https://github.com/timsamoff/LooseyGoosey/blob/main/prod/LooseyGooseyIcon.png?raw=true" width="250px">
+<img src="https://github.com/timsamoff/LooseyGoosey/blob/main/prod/lg-icon?raw=true" width="250px">
 
 # Loosey Goosey _(v2.0!)_
 
