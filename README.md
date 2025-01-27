@@ -6,9 +6,9 @@
 ## About
 Loosey Goosey is not happy about all of the stuff that humans leave behind. Play as Loosey and teach those nasty people a lesson — and reclaim nature only as a goose can do!
 
-Tim Samoff (tim@samoff.com): Game design and programming
-Josiah Samoff: Music and sound effects
-Vicki Samaras: Vicki Samarin: Loosey Goosey art and animation
+* Tim Samoff (tim@samoff.com): Game design and programming
+* Josiah Samoff: Music and sound effects
+* Vicki Samaras: Vicki Samarin: Loosey Goosey art and animation
 
 ## Diversifiers
 
@@ -18,6 +18,8 @@ Vicki Samaras: Vicki Samarin: Loosey Goosey art and animation
 * QuickDraw
 
 *(Diversifier descriptions [here](https://globalgamejam.org/news/ggj-2024-diversifiers-are-here).)*
+
+Made with ❤ during Global Game Jam 2024.
 
 ## How To Play
 
